@@ -1,0 +1,94 @@
+# ─── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+
+# ─── Virtual Environments ─────────────────────────────────────────────────────
+venv/
+env/
+ENV/
+.env
+.venv
+env.bak/
+venv.bak/
+
+# ─── Environment Variables ────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.env
+
+# ─── Jupyter Notebooks ────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ─── ML Model Files (large binaries) ─────────────────────────────────────────
+# Model weights are too large for GitHub (>100 MB limit)
+saved_model/model_weights.pt
+saved_model/*.bin
+saved_model/*.safetensors
+
+# HuggingFace cache
+.cache/
+~/.cache/huggingface/
+
+# ─── Dataset Files ────────────────────────────────────────────────────────────
+# Jigsaw dataset is ~52 MB — download separately from Kaggle
+data/train.csv
+data/test.csv
+data/test_labels.csv
+data/*.csv
+data/*.zip
+data/*.gz
+
+# ─── Training Logs ────────────────────────────────────────────────────────────
+logs/
+*.log
+training_history.csv
+
+# ─── OS Files ─────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ─── IDE / Editor ─────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+
+# ─── Testing ──────────────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ─── Streamlit ────────────────────────────────────────────────────────────────
+.streamlit/secrets.toml
+
+# ─── Misc ─────────────────────────────────────────────────────────────────────
+*.bak
+*.tmp
+*.orig
