@@ -39,6 +39,8 @@ venv.bak/
 # ─── ML Model Files (large binaries) ─────────────────────────────────────────
 # Model weights are too large for GitHub (>100 MB limit)
 saved_model/model_weights.pt
+saved_model/model.joblib
+saved_model/meta.json
 saved_model/*.bin
 saved_model/*.safetensors
 
