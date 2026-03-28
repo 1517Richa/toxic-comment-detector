@@ -1,12 +1,59 @@
 import joblib
+import os
 import numpy as np
 import pandas as pd
 import streamlit as st
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.pipeline import Pipeline
 
-from utils import LABELS, load_meta
+from utils import LABELS, ensure_dir, load_meta, load_training_data, save_meta
 
 MODEL_PATH = "saved_model/model.joblib"
 META_PATH = "saved_model/meta.json"
+
+
+def bootstrap_demo_model():
+    X, y = load_training_data(fast=True)
+    X_train, X_val, y_train, y_val = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    model = Pipeline(
+        steps=[
+            (
+                "tfidf",
+                TfidfVectorizer(max_features=15000, ngram_range=(1, 2), min_df=1),
+            ),
+            (
+                "clf",
+                OneVsRestClassifier(
+                    LogisticRegression(max_iter=400, solver="liblinear")
+                ),
+            ),
+        ]
+    )
+    model.fit(X_train, y_train)
+
+    probs = model.predict_proba(X_val)
+    preds = (probs >= 0.5).astype(int)
+    per_label_acc = {}
+    for i, label in enumerate(LABELS):
+        per_label_acc[label] = float((preds[:, i] == y_val[label].to_numpy()).mean())
+
+    ensure_dir("saved_model")
+    joblib.dump(model, MODEL_PATH)
+    save_meta(
+        META_PATH,
+        {
+            "labels": LABELS,
+            "thresholds": {label: 0.5 for label in LABELS},
+            "metrics": {"bootstrap_per_label_accuracy": per_label_acc},
+        },
+    )
+    return model
 
 st.set_page_config(
     page_title="Toxic Comment Detector",
@@ -142,8 +189,12 @@ st.markdown(
 try:
     model = joblib.load(MODEL_PATH)
 except Exception:
-    st.error("Model not found. Run: python train.py --fast")
-    st.stop()
+    st.warning(
+        "No trained model found. Building a quick demo model now (first run only)."
+    )
+    with st.spinner("Training lightweight demo model..."):
+        model = bootstrap_demo_model()
+    st.success("Demo model is ready.")
 
 meta = load_meta(META_PATH) or {}
 thresholds = meta.get("thresholds", {label: 0.5 for label in LABELS})

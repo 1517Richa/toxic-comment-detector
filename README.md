@@ -10,7 +10,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.32%2B-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 
-[Live Demo](#-streamlit-ui) · [Quick Start](#-quick-start) · [Documentation](#-project-structure)
+[Live Demo](https://YOUR-APP-NAME.streamlit.app) · [Quick Start](#-quick-start) · [Documentation](#-project-structure)
 
 </div>
 
@@ -201,6 +201,28 @@ streamlit run app.py
 ```bash
 bash demo.sh
 ```
+
+---
+
+## 🚀 Live Demo on GitHub (Streamlit Cloud)
+
+You can publish a live app directly from this GitHub repository.
+
+### Steps
+
+1. Push latest code to your `main` branch.
+2. Go to: https://share.streamlit.io
+3. Click **New app** and select:
+  - **Repository**: `1517Richa/toxic-comment-detector`
+  - **Branch**: `main`
+  - **Main file path**: `app.py`
+4. Click **Deploy**.
+
+### Notes
+
+- The app now auto-creates a lightweight demo model on first run if model files are missing.
+- `runtime.txt` is included so Streamlit Cloud uses a compatible Python runtime.
+- After deploy, replace `https://YOUR-APP-NAME.streamlit.app` at the top of this README with your real app URL.
 
 ---
 
